@@ -1,0 +1,64 @@
+---
+title: "Analysis of Justin Trudeau's Approval Ratings by Language"
+author: "Arshnoor Kaur Gill"
+date: 2020-09-27T21:13:14-05:00
+categories: ["R"]
+tags: ["R Markdown", "plot", "regression"]
+---
+
+
+
+<div id="abstract" class="section level1">
+<h1>Abstract</h1>
+<p>In this study I pulled data from the 2019 Canadian Election Survey by Stephenson et al in order to find Canadian approval ratings for Justin Trudeau. In hopes of comparing approval ratings by language-speakers, I devised a summary plot for key statistics as well as made two histograms to be compared side-by-side for notable differences. The study finds that English-speakers by average had a lower approval rating and that French-speakers had a more broadly split view of the prime minister. Further steps include elimating biases by equalizing the amount of responses from French and English speakers in the actual analysis through random sampling.</p>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This study calls upon the survey data collected in the 2019 Canadian Election Study by Stephenson et al. Elections at many times are decided by particular issues that seize the a critical moment on the campaign trail, but they are just as much decided by the country’s perception of the party leaders, who make up the face of the party. I decided to investigate using this survey’s data how Canada’s English-speaking and French-speaking populations feel about Justin Trudeau using the survey’s phone data.</p>
+<p>I used the <code>get_ces</code> function to create a dataset that especially focused on the phone data collected in the 2019 study. I then converted the factor type to one more intuitively understood by people through the <code>to_factor</code> function, before isolating the data from the 20th question, how the respondant felt about Justin Trudeau, and using the percentages provided to make a histogram to depict the varied responses. I discovered that amongst anglophones there’s a striking peak at the lower range of this graph, with another peak in the 40s, suggesting Justin Trudeau’s reputation is controversial to the Canadian public. The French response is much more broadly spread, with a smaller peak in the 40s as well.</p>
+<p>This suggests that Justin Trudeau’s favourability ratings are both not too low as to hinder the party but also not especially high. That being said, there are several weaknesses to using a histogram for this sort of research. Other methodologies, such as a statistical summary, would provide more exact results regarding peaks, and there is such a difference in the sheer number of anglophone responses to francophone responses that it creates a visual bias when the histograms are pitted against each other, suggesting lower French engagement in the election when such a thing may not be true. In future steps, perhaps the anglophone responses can be randomly sampled such as the number is equal to the francophone responses, elimating that visual bias.</p>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>We can get into the specifics of the data. The variable that we focused on, as stated earlier in the introduction, was <code>q20</code>, which in other words was how the respondant felt about Justin Trudeau, with their response being a percentage out of 100%.</p>
+<p>The summary statistics are as follows:</p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)
+## # A tibble: 2 x 5
+##   language_CES  mean median   min   max
+##   &lt;fct&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 (1) English   36.9     42     1    76
+## 2 (2) French    41.1     42     1    76</code></pre>
+<p>Though the median for both language-speaking populations for Trudeau is 42%, it is clear from the median, higher for the French than the English, that Justin Trudeau’s popularity is marginally better in French-speaking areas. The minimum and maximum for both are the same, for a range of 75% in total. This suggests that regardless of language, people across the country have strong and varied opinions about the prime minister.</p>
+<p>Given these summary statistics, the next step is to create visual representation of the responses with two histograms.</p>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The graphs give context for some of the discrepencies found in the summary statistics. Though it was true that the medians for both populations was the same, for English-speakers there is a strong right-skew, which lowers the mean from the median. There is clearly a large population of the English-speaking country that deeply disapproves of Justin Trudeau, whereas the Francophone response is far more spread and to a degree even symmetrical with the centre of the data clearly in the mid-forties. All in all, it suggests that public opinion of Justin Trudeau is malleable and that within the election he had a good chance to improve or further lower his approval with his campaign.</p>
+<div id="weaknesses-and-next-steps" class="section level2">
+<h2>Weaknesses and Next Steps</h2>
+<p>The sheer number of responses in the anglophone population compresses the French response such that it appears that the French are less engaged with politics. In order to eliminate the numerical bias, perhaps a sample of the English responses can be taken, equal to the French responses, in order to have a less skewed comparison. Moreover, perhaps the data could be defined not on language but on regional grounds. This way, an English speaker who lives in a predominantly French region could be compared to an English speaker who lives in a predominantly English region.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li>Stephenson, Laura B; Harell, Allison; Rubenson, Daniel; Loewen, Peter John, 2020, ‘2019 Canadian Election Study - Online Survey’, <a href="https://doi.org/10.7910/DVN/DUS88V" class="uri">https://doi.org/10.7910/DVN/DUS88V</a>, Harvard Dataverse, V1</li>
+<li>Paul A. Hodgetts and Rohan Alexander (2020). cesR: Access the CES Datasets a Little Easier.. R package version 0.1.0.</li>
+<li>Hadley Wickham, Jim Hester and Winston Chang (2020). devtools: Tools to Make Developing R Packages Easier. <a href="https://devtools.r-lib.org/,https://github.com/r-lib/devtools" class="uri">https://devtools.r-lib.org/,https://github.com/r-lib/devtools</a>.</li>
+<li>R Core Team (2020). R: A language and environment for
+statistical computing. R Foundation for Statistical
+Computing, Vienna, Austria. URL
+<a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</li>
+<li>JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Ushey and
+Aron Atkins and Hadley Wickham and Joe Cheng and Winston Chang and Richard Iannone
+(2020). rmarkdown: Dynamic Documents for R. R package version 2.3. URL
+<a href="https://rmarkdown.rstudio.com" class="uri">https://rmarkdown.rstudio.com</a>.</li>
+<li>Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive
+Guide. Chapman and Hall/CRC. ISBN 9781138359338. URL
+<a href="https://bookdown.org/yihui/rmarkdown" class="uri">https://bookdown.org/yihui/rmarkdown</a>.</li>
+<li>Joseph Larmarange (2020). labelled: Manipulating Labelled Data. R package version
+2.7.0. <a href="https://CRAN.R-project.org/package=labelled" class="uri">https://CRAN.R-project.org/package=labelled</a></li>
+<li>Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software,
+4(43), 1686, <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a></li>
+<li>Yihui Xie (2020). blogdown: Create Blogs and Websites with R Markdown. R package
+version 0.20.</li>
+</ul>
+</div>
+</div>
